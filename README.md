@@ -1,6 +1,7 @@
 #### 仕様
 
-社名　　　　価格　　　　定員　　　　加速度
-Ferrari 
-Honda
-Nissan
+<Ferrari> 価格：2000~5000万円 定員：2人 加速度：13m/s²
+ 
+<Honda> 
+  
+<Nissan> 
