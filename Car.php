@@ -5,6 +5,8 @@ class Car {
 	protected $price = ""; // 価格
 	protected $capacity = ""; // 定員数
 	protected $acceleration = ""; // 加速度
+	protected $passenger = ""; //乗員数
+	protected $actual_acceleration = ""; //実際の加速度
 
 	public function accelerate() {}
 
@@ -24,6 +26,11 @@ class Car {
 
 	public function getAcceleration() {
 		return $this->acceleration;
+	}
+	
+	public function getActualAcceleration() {
+		$actual_acceleration = $this->acceleration * (1 - 0.05 * $this->passenger);
+		return $actual_acceleration
 	}
 }
 
