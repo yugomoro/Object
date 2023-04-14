@@ -28,6 +28,10 @@ class Car {
 		return $this->acceleration;
 	}
 	
+	public function getPassenger() {
+		return $this->passenger;
+	}
+	
 	public function getActualAcceleration() {
 		if ($this instanceof Nissan) {
 			$poor_acceleration = $this->acceleration * 0.6;
