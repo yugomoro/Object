@@ -29,8 +29,13 @@ class Car {
 	}
 	
 	public function getActualAcceleration() {
-		$actual_acceleration = $this->acceleration * (1 - 0.05 * $this->passenger);
-		return $actual_acceleration
+		if ($this instanceof Nissan) {
+			$poor_acceleration = $this->acceleration * 0.6;
+			$actual_acceleration = $poor_acceleration * (1 - 0.05 * $this->passenger);
+		} else {
+			$actual_acceleration = $this->acceleration * (1 - 0.05 * $this->passenger);
+		}
+		return $actual_acceleration;
 	}
 }
 
