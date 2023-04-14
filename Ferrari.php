@@ -7,6 +7,8 @@ class Ferrari extends Car {
 		$this->price = mt_rand(2000, 5000);
 		$this->capacity = 2;
 		$this->acceleration = 13;
+		$this->passenger =mt_rand(1,$this->capacity);
+		$this->actual_acceleration = $this->getActualAcceleration();
 	}
 	private $height = 100;
 	private $liftstatus = "true";
