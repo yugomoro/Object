@@ -3,9 +3,9 @@
   require_once("Nissan.php");
   require_once("Ferrari.php");
 
-$honda = new Honda();
-$nissan = new Nissan();
-$ferrari = new Ferrari();
+$honda1 = new Honda();
+$nissan1 = new Nissan();
+$ferrari1 = new Ferrari();
 
 $cars1 = array($honda1, $nissan1, $ferrari1);
   foreach ($cars1 as $value) {
