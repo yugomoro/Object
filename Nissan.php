@@ -5,7 +5,7 @@
   class Nissan extends Car {
 	private $poor_acceleration;
 	  
-	public function __construct() {
+	parent::public function __construct() {
 		$this->company = "Nissan";
 		$this->price = mt_rand(100, 300);
 		$this->capacity = 5;
