@@ -14,7 +14,7 @@ class Calculate {
 	public function __construct() {
 		 for ($i = 0; $i < mt_rand(10, 20); $i++) {
             $car = $this->generateRandomCar();
-            switch ($car->getName()) {
+            switch ($car->getCompany()) {
                 case "Honda":
                     $this->honda_count++;
                     break;
