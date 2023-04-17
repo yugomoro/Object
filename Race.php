@@ -1,73 +1,78 @@
 <?php
+
 require_once("Ferrari.php");
 require_once("Honda.php");
 require_once("Nissan.php");
 require_once("Toyota.php");
 
-class Race {
-    private $cars = array();
+class Race
+{
+    private array $cars;
 
-    public function __construct() {
-        $this->cars[] = new Ferrari();
-        $this->cars[] = new Honda();
-        $this->cars[] = new Nissan();
-        $this->cars[] = new Toyota();
+    public function __construct()
+    {
+        $this->cars = [
+            new Ferrari(),
+            new Honda(),
+            new Nissan(),
+            new Toyota()
+        ];
     }
 
-    public function start() {
-        $distance = 5000; // レース距離
-        $brake_probability = 0.2; // ブレーキを踏む確率
+    public function start()
+    {
+        // レース距離を50~100kmの間でランダムに決める
+        $race_distance = mt_rand(50, 100);
+        echo "レース距離は{$race_distance}kmです。\n\n";
 
-        // レースの進行状況を表す変数
-        $race_progress = array(
-            "Ferrari" => 0,
-            "Honda" => 0,
-            "Nissan" => 0,
-            "Toyota" => 0
-        );
-
-        while ($distance > 0) {
-            // 各車両の進行状況を更新する
+        // レース開始
+        $elapsed_time = 0;
+        while (true) {
+            // 車ごとに加速度を計算し、走行距離を進める
             foreach ($this->cars as $car) {
-                if ($distance > 0) {
-                    // ブレーキを踏むかどうかランダムに決定する
-                    $brake = (mt_rand(0, 99) / 100) < $brake_probability;
-
-                    if (!$brake) {
-                        // ブレーキを踏まない場合、加速度に基づいて進行状況を更新する
-                        $progress = $car->getActualAcceleration() * $car->getPassenger();
-                        $race_progress[$car->getCompany()] += $progress;
-                        $distance -= $progress;
-                    }
+                $distance = $car->actual_acceleration * pow($elapsed_time, 2) / 2;
+                if ($distance >= $race_distance * 1000) {
+                    // ゴールしたらゴール時間を設定し、ループを抜ける
+                    $car->goal_time = $elapsed_time;
+                    break 2;
                 }
+                $car->distance = $distance;
+            }
+
+            // ブレーキを踏むかどうかをランダムに決める
+            $is_brake = mt_rand(0, 1);
+            if ($is_brake) {
+                // 車ごとにブレーキをかける
+                foreach ($this->cars as $car) {
+                    $car->brake();
+                }
+                echo "ブレーキを踏みました。\n";
+            }
+
+            // 経過時間を進める
+            $elapsed_time += 1;
+        }
+
+        // ゴール順にソート
+        usort($this->cars, function ($a, $b) {
+            return $a->goal_time - $b->goal_time;
+        });
+
+        // 中間地点での順位を出力
+        echo "\n中間地点での順位は以下の通りです。\n";
+        foreach ($this->cars as $index => $car) {
+            $distance = $car->distance;
+            if ($distance >= $race_distance * 1000 / 2) {
+                echo ($index + 1) . "位: " . $car->getCompany() . "\n";
             }
         }
 
-        // ゴールした順位を求める
-        arsort($race_progress);
-        $rank = array();
-        $i = 1;
-        foreach ($race_progress as $company => $progress) {
-            $rank[] = "$i: $company";
-            $i++;
+        // ゴール後の順位を出力
+        echo "\nゴール後の順位は以下の通りです。\n";
+        foreach ($this->cars as $index => $car) {
+            echo ($index + 1) . "位: " . $car->getCompany() . " (ゴール時間: " . $car->goal_time . "秒)\n";
         }
-
-        // 2.5km地点での順位を表示する
-        echo "2.5km地点の順位: ";
-        for ($i = 0; $i < count($rank); $i++) {
-            echo $rank[$i] . " ";
-            if ($i == 1) {
-                break;
-            }
-        }
-        echo "\n";
-
-        // ゴール地点での順位を表示する
-        echo "ゴール地点の順位: ";
-        foreach ($rank as $r) {
-            echo $r . " ";
-        }
-        echo "\n";
     }
 }
+
 ?>
