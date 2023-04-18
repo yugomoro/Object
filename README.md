@@ -23,3 +23,19 @@ Ferrari  通常時の車高：100mm
 
 実際の加速度=加速度×{1－(0.05×乗員数)} となるように設計
 
+####実行方法
+
+準備：VSCode,XAMPPをデバイスにインストールし各種設定を行いPHPの実行環境を構築する
+
+```launch.json
+"configurations": [
+    {
+        "name": "Launch currently open script",
+        "type": "php",
+        "request": "launch",
+        "program": "${file}",
+        "cwd": "${fileDirname}",
+        "port": 9000
+    }
+]
+```
