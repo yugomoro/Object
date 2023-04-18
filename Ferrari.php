@@ -1,43 +1,43 @@
-<?php
-  require_once("Car.php");
 
-class Ferrari extends Car {
-	parent::public function __construct() {
-		$this->company = "Ferrari";
-		$this->price = mt_rand(2000, 5000);
-		$this->capacity = 2;
-		$this->acceleration = 13;
-		$this->passenger =mt_rand(1,$this->capacity);
-		$this->actual_acceleration = $this->getActualAcceleration();
+<?php
+
+require_once("Car.php");
+
+class Ferrari extends Car
+{
+	public function __construct()
+	{
+		parent::__construct("Ferrari", 2000, 5000, 2, 13, 200);
 	}
 	private $height = 100;
-	private $liftstatus = "true";
+	private bool $lift_is_upped = false;
 
-	function showStatus() {
-		echo $this->company . "通常時の車高は" . $this->height . "mmです。加速度は" . $this->acceleration . "m/s²です。\n";
+	function showStatus()
+	{
+		echo $this->company . "現在の車高は" . $this->height . "mmです。加速度は" . $this->acceleration . "m/s²です。\n";
 	}
 
-	function LiftUp() {
-		if ($this->liftstatus == "true") {
+	function Liftup()
+	{
+		if ($this->lift_is_upped == false) {
 			$this->acceleration *= 0.8;
 			$this->height += 40;
-			$this->liftstatus = "false";
-			echo "リフトアップしました。" . $this->company . "のリフトアップ後の車高は" . $this->height . "mmです。加速度は" . $this->acceleration . "m/s²です。\n";
+			$this->lift_is_upped = true;
+			echo "リフトアップしました。\n";
 		} else {
 			echo "これ以上リフトアップできません。\n";
 		}
 	}
 
-	function LiftDown() {
-		if ($this->liftstatus == "false") {
+	function Liftdown()
+	{
+		if ($this->lift_is_upped == true) {
 			$this->acceleration = 13;
 			$this->height -= 40;
-			$this->liftstatus = "true";
-			echo "リフトダウンしました。" . $this->company . "のリフトダウン後の車高は" . $this->height . "mmです。加速度は" . $this->acceleration . "m/s²です。";
+			$this->lift_is_upped = false;
+			echo "リフトダウンしました。\n";
 		} else {
-			"これ以上リフトダウンできません。";
+			echo "これ以上リフトダウンできません。\n";
 		}
 	}
 }
-
-?>
