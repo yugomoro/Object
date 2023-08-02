@@ -90,4 +90,19 @@ class Car
         return ($this->max_speed * 1000 / 60 / 60) * $this->timeToStop() - (0.5 * 6 * ($this->timeToStop() * $this->timeToStop()));
     }
     //減速度=6m/s*2
+
+    public function outputQ1()
+    {
+        echo "{$this->getCompany()}の価格は{$this->getPrice()}万円です。定員は{$this->getCapacity()}人で、加速度は{$this->getAcceleration()}m/s²です。\n";
+    }
+
+    public function outputQ4()
+    {
+        echo "{$this->getCompany()}の定員は{$this->getCapacity()}人です。今回の乗車人数は{$this->getPassenger()}人のため、実際の加速性能は{$this->getActualAcceleration()}m/s²です。\n";
+    }
+
+    public function outputActualAcceleration()
+    {
+        echo "{$this->getCompany()}の乗車人数は{$this->getPassenger()}人のため、実際の加速性能は{$this->getActualAcceleration()}m/s²です。\n";
+    }
 }
