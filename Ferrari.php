@@ -31,12 +31,27 @@ class Ferrari extends Car
     function downLift()
     {
         if ($this->lift_is_upped == true) {
-            $this->acceleration = 13;
+            $this->acceleration /= 0.8;
             $this->height -= 40;
             $this->lift_is_upped = false;
             echo "リフトダウンしました。\n";
         } else {
             echo "これ以上リフトダウンできません。\n";
         }
+    }
+
+    function outputQ2()
+    {
+        $this->showStatus();
+        // リフトアップ後の車高と加速度
+        $this->upLift();
+        $this->showStatus();
+        // もう一度リフトアップ
+        $this->upLift();
+        // リフトダウン後の車高と加速度
+        $this->downLift();
+        $this->showStatus();
+        // もう一度リフトダウン
+        $this->downLift();
     }
 }
