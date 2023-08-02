@@ -12,4 +12,12 @@ class Toyota extends Car
         $acceleration = $price / 100;
         parent::__construct("Toyota", $min, $max, 5, $acceleration, 150);
     }
+
+    public function outputPriceAndAcceleration()
+    {
+        $company = parent::getCompany();
+        $price = parent::getPrice();
+        $acceleration = parent::getAcceleration();
+        echo "今回の{$company}の価格は{$price}万円なので、加速度は{$acceleration}m/s²です。\n";
+    }
 }
